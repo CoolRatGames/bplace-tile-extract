@@ -14,7 +14,7 @@ function App() {
 	const inputUrl: URL = new URL(input);
 	const pixelParam: string | null = inputUrl.searchParams.get("pixel");
 	if(!pixelParam) {
-		output = <div>Invalid URL, click <button onClick={setExampleUrl}>here</button> to load an Example URL</div>;
+		output = <div>Invalid URL, click <button onClick={setExampleUrl}>here</button> to load an Example URL.</div>;
 	} else {
 		const parts: string[] = pixelParam.split(",");
 		const tileX: number = Math.floor(parseInt(parts[0]) / 512);
