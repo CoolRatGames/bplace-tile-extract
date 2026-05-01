@@ -1,0 +1,7 @@
+.tile {
+    background-color: var(--social-bg);
+    border: 1px solid var(--accent-border);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
