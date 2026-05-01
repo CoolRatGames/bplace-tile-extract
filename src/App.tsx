@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from "./App.module.css";
 
-const EXAMPLE_URL: string = "https://bplace.art/?pixel=699634,424290";
+const EXAMPLE_URL: string = "https://bplace.art/?pixel=676718,459523";
 
 function App() {
 	const [input, setInput] = React.useState(EXAMPLE_URL);
