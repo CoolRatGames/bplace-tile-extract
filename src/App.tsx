@@ -20,7 +20,7 @@ function App() {
 		const tileX: number = Math.floor(parseInt(parts[0]) / 512);
 		const tileY: number = Math.floor(parseInt(parts[1]) / 512);
 
-		const URL = `https://tiles.bplace.art/tile-images/${tileX}_${tileY}.png`;
+		const URL = `https://tiles-worldmap.bplace.art/${tileX}_${tileY}.png`;
 		const handleOpenURL = () => { window.open(URL, "_blank"); };
 		output = (
 			<>
