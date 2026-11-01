@@ -3,6 +3,18 @@ import styles from "./App.module.css";
 
 const EXAMPLE_URL: string = "https://bplace.art/?pixel=676718,459523";
 
+type FetchTileFunc = (x: number, y: number) => string;
+const getEarthTile: FetchTileFunc = (x: number, y: number) => `https://tiles-worldmap.bplace.art/${x}_${y}.png`;
+const getMoonTile: FetchTileFunc = (x: number, y: number) => `https://tiles-worldmap.bplace.art/moon/${x}_${y}.png`;
+
+function parseURL(input: string): URL | null {
+	try {
+		return new URL(input);
+	} catch {
+		return null;
+	}
+}
+
 function App() {
 	const [input, setInput] = React.useState<string>(EXAMPLE_URL);
 
@@ -11,16 +23,21 @@ function App() {
 
 	let output: React.JSX.Element;
 
-	const inputUrl: URL = new URL(input);
-	const pixelParam: string | null = inputUrl.searchParams.get("pixel");
-	if(!pixelParam) {
+	const inputUrl = parseURL(input);
+
+	const pixelParam: string | null = inputUrl?.searchParams.get("pixel") ?? null;
+	if(inputUrl == null || pixelParam == null) {
 		output = <div>Invalid URL, click <button onClick={setExampleUrl}>here</button> to load an Example URL.</div>;
 	} else {
+		let tileFunc: FetchTileFunc = getEarthTile;
+		if(inputUrl.pathname == "/moon")
+			tileFunc = getMoonTile;
+
 		const parts: string[] = pixelParam.split(",");
 		const tileX: number = Math.floor(parseInt(parts[0]) / 512);
 		const tileY: number = Math.floor(parseInt(parts[1]) / 512);
 
-		const URL = `https://tiles-worldmap.bplace.art/${tileX}_${tileY}.png`;
+		const URL = tileFunc(tileX, tileY);
 		const handleOpenURL = () => { window.open(URL, "_blank"); };
 		output = (
 			<>
