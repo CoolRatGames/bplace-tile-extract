@@ -8,6 +8,7 @@ const getEarthTile: FetchTileFunc = (x: number, y: number) => `https://tiles-wor
 const getMoonTile: FetchTileFunc = (x: number, y: number) => `https://tiles-worldmap.bplace.art/moon/${x}_${y}.png`;
 
 function parseURL(input: string): URL | null {
+	if(input == "") return null;
 	try {
 		return new URL(input);
 	} catch {
@@ -20,6 +21,7 @@ function App() {
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { setInput(e.target.value); };
 	const setExampleUrl = () => { setInput(EXAMPLE_URL); };
+	const clearURL = () => { setInput(""); };
 
 	let output: React.JSX.Element;
 
@@ -54,7 +56,7 @@ function App() {
 			<br/>
 			<p>Enter a bPlace Pixel URL here:</p>
 			<div>
-				<div><input onChange={handleInputChange} style={{width: "50%"}} value={input}/></div>
+				<div><input onChange={handleInputChange} style={{width: "50%"}} value={input}/><button onClick={() => clearURL()}>Clear</button></div>
 				<div>{output}</div>
 			</div>
 		</>
